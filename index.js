@@ -6,11 +6,12 @@ let numbers = [];
 let numberStatus = false;
 
 cardNumber.addEventListener("input", function (e) {
+  console.log(numbers);
+
   let numberValue;
   if (cardNumber.value === "") {
     numberStatus = false;
   } else if ((numbers.length >= 1 || numbers.length <= 19) && !numberStatus) {
-    numberStatus = false;
     numberValue = `${cardNumber.value[cardNumber.value.length - 1]}`;
     numbers.push(numberValue);
 
@@ -24,7 +25,6 @@ cardNumber.addEventListener("input", function (e) {
       cardNumber.value += "-";
       numbers.push(cardNumber.value[14]);
     } else if (cardNumber.value.length === 19) {
-      numberStatus = true;
     }
   }
 });
@@ -34,12 +34,45 @@ document.addEventListener("keydown", (e) => {
   if (key === "Backspace") {
     if (numbers.length >= 1 || numbers.length <= 19) {
       numbers.pop();
-
       numberStatus = true;
     }
   }
 });
-const isCreditCardNumberValid = (cardNumber) => {};
+const isCreditCardNumberValid = (cardNumber) => {
+  numberArray = cardNumber.split("");
+  if (numberArray.length === 19) {
+    numberArray = numberArray.filter((v) => v !== "-");
+    lastNumbers = Number(numberArray[numberArray.length - 1]);
+
+    if (lastNumbers % 2 == 0) {
+      console.log("son rakam çift");
+      let checkDif = checkNumberDif(numberArray);
+
+      if (checkDif) {
+        console.log("rakamlar farklı");
+
+        let totalNumber = totalArr(numberArray);
+
+        if (totalNumber > 16) {
+          console.log("doğru rakamlar");
+        }
+      }
+    }
+  }
+};
+
+function checkNumberDif(a) {
+  return new Set(a).size !== 1;
+}
+
+function totalArr(arr) {
+  let sum = 0;
+  arr.forEach((each) => {
+    sum += each;
+  });
+
+  return sum;
+}
 
 function showError(input, message) {
   const formControl = input.parentElement;
@@ -54,13 +87,11 @@ function showSuccess(input) {
 }
 
 form.addEventListener("submit", (e) => {
-  if (cardHolderName.value === "") {
-    showError(cardHolderName, "Card holder name is required");
-  } else {
-    showSuccess(cardHolderName);
-  }
-
-  isCreditCardNumberValid(numbers);
-
+  // if (cardHolderName.value === "") {
+  //   showError(cardHolderName, "Card holder name is required");
+  // } else {
+  //   showSuccess(cardHolderName);
+  // }
   e.preventDefault();
+  isCreditCardNumberValid(cardNumber.value);
 });
