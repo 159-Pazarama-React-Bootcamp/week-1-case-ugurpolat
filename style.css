@@ -135,11 +135,13 @@ h2 {
 
 .form button {
   cursor: pointer;
-  background-color: #7fadf1;
+  background-color: #b47c8d;
   border: none;
   border-radius: 4px;
   color: #fff;
-  font-size: vw;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
   padding: 10px;
   margin-top: 20px;
   width: 30%;

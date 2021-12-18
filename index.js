@@ -38,8 +38,8 @@ document.addEventListener("keydown", (e) => {
     }
   }
 });
-const isCreditCardNumberValid = (cardNumber) => {
-  numberArray = cardNumber.split("");
+const isCreditCardNumberValid = (cardNumbers) => {
+  numberArray = cardNumbers.split("");
   if (
     numberArray.length === 19 ||
     numberArray.length === 18 ||
@@ -56,18 +56,18 @@ const isCreditCardNumberValid = (cardNumber) => {
         let totalNumber = totalArr(numberArray);
 
         if (totalNumber > 16) {
-          console.log("doğru rakamlar");
+          showSuccess(cardNumber);
         } else {
-          console.log("Wrong Number");
+          showError(cardNumber, "Card number total sum is lower than 16");
         }
       } else {
-        console.log("Wrong Number");
+        showError(cardNumber, "Incorrect character");
       }
     } else {
-      console.log("Wrong Number");
+      showError(cardNumber, "Last number of card is odd");
     }
   } else {
-    console.log("Wrong Number");
+    showError(cardNumber, "Card number is missing, it should be 16-digit");
   }
 };
 
