@@ -40,24 +40,34 @@ document.addEventListener("keydown", (e) => {
 });
 const isCreditCardNumberValid = (cardNumber) => {
   numberArray = cardNumber.split("");
-  if (numberArray.length === 19) {
+  if (
+    numberArray.length === 19 ||
+    numberArray.length === 18 ||
+    numberArray.length === 17 ||
+    numberArray.length === 16
+  ) {
     numberArray = numberArray.filter((v) => v !== "-");
     lastNumbers = Number(numberArray[numberArray.length - 1]);
 
     if (lastNumbers % 2 == 0) {
-      console.log("son rakam çift");
       let checkDif = checkNumberDif(numberArray);
 
       if (checkDif) {
-        console.log("rakamlar farklı");
-
         let totalNumber = totalArr(numberArray);
 
         if (totalNumber > 16) {
           console.log("doğru rakamlar");
+        } else {
+          console.log("Wrong Number");
         }
+      } else {
+        console.log("Wrong Number");
       }
+    } else {
+      console.log("Wrong Number");
     }
+  } else {
+    console.log("Wrong Number");
   }
 };
 
