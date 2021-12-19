@@ -5,9 +5,8 @@ const cardHolderName = document.getElementById("card-holder");
 let numbers = [];
 let numberStatus = false;
 
+// add "-" character between digits
 cardNumber.addEventListener("input", function (e) {
-  console.log(numbers);
-
   let numberValue;
   if (cardNumber.value === "") {
     numberStatus = false;
@@ -29,6 +28,7 @@ cardNumber.addEventListener("input", function (e) {
   }
 });
 
+// Delete input value
 document.addEventListener("keydown", (e) => {
   let key = e.key;
   if (key === "Backspace") {
@@ -38,6 +38,8 @@ document.addEventListener("keydown", (e) => {
     }
   }
 });
+
+// check card value conditions
 const isCreditCardNumberValid = (cardNumbers) => {
   numberArray = cardNumbers.split("");
   if (
@@ -71,10 +73,12 @@ const isCreditCardNumberValid = (cardNumbers) => {
   }
 };
 
+// Check is there any different character
 function checkNumberDif(a) {
   return new Set(a).size !== 1;
 }
 
+//Calculate card number
 function totalArr(arr) {
   let sum = 0;
   arr.forEach((each) => {
@@ -84,6 +88,7 @@ function totalArr(arr) {
   return sum;
 }
 
+// Change small messages
 function showError(input, message) {
   const formControl = input.parentElement;
   formControl.className = "form-control part-1 error";
@@ -91,17 +96,20 @@ function showError(input, message) {
   small.innerText = message;
 }
 
+// Show small message
 function showSuccess(input) {
   const formControl = input.parentElement;
   formControl.className = "form-control part-1 success";
 }
 
 form.addEventListener("submit", (e) => {
-  // if (cardHolderName.value === "") {
-  //   showError(cardHolderName, "Card holder name is required");
-  // } else {
-  //   showSuccess(cardHolderName);
-  // }
-  e.preventDefault();
   isCreditCardNumberValid(cardNumber.value);
+
+  if (cardHolderName.value === "") {
+    showError(cardHolderName, "Card holder name is required");
+  } else {
+    showSuccess(cardHolderName);
+  }
+
+  e.preventDefault();
 });
